@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QuoteRequest } from '../models/quote-request';
 import { QuoteResponse } from '../models/quote-response';
+import { environment } from '../../environments/environment';
 
 interface UserQuotesResponse {
   userQuotes: QuoteResponse[]
@@ -14,7 +15,7 @@ interface UserQuotesResponse {
 
 export class QuoteService {
 
-  private apiUrl = '/api/quote';
+  private apiUrl = environment.apiUrl + '/api/quote';
 
   constructor(private http: HttpClient) { }
 

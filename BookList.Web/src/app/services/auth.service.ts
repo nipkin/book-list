@@ -1,6 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, of, shareReplay } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface LoginRequest {
   username: string;
@@ -25,7 +26,7 @@ export interface AddUserResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = '/api/auth';
+  private apiUrl = environment.apiUrl + '/api/auth';
 
   private _isLoggedIn = signal<boolean>(false);
   private _isChecked = signal<boolean>(false);
@@ -61,7 +62,7 @@ export class AuthService {
 
   logout(): Observable<{ success: boolean }> {
     return this.http.post<{ success: boolean }>(
-      `${this.apiUrl}/logout`,
+      this.apiUrl + '/logout',
       {},
       { withCredentials: true }
     ).pipe(
