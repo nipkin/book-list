@@ -9,8 +9,16 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // DbContext
-builder.Services.AddDbContext<BookListDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<BookListDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+}
+else
+{
+    builder.Services.AddDbContext<BookListDbContext>(options =>
+        options.UseSqlite("Data Source=/home/booklist.db"));
+}
 
 // Controllers
 builder.Services.AddControllers();
@@ -27,7 +35,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-// OpenAPI / Swagger
+// OpenAPI
 builder.Services.AddOpenApi();
 
 builder.Services.AddHttpContextAccessor();
