@@ -21,8 +21,7 @@
 # BookList.Api/Migrations/*Snapshot.cs
 
 # Secret configuration files
-**/appsettings*.json
-!**/appSettings.Development.example.json
+**/appSettings.Development.json
 
 # Launch settings
 **/Properties/launchSettings.json
