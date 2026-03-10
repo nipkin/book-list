@@ -58,7 +58,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
+    var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!) ?? throw new InvalidOperationException("Jwt:Key is not configured!");
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = false,
