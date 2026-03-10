@@ -1,0 +1,79 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">Biblioteket</a>
+
+      <button class="navbar-toggler"
+              type="button"
+              (click)="toggleNav()"
+              [attr.aria-expanded]="isNavOpen()"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse"
+           [class.collapse]="!isNavOpen()"
+           [class.show]="isNavOpen()"
+           id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link"
+               routerLink="/"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }"
+               (click)="isNavOpen.set(false)">
+              Boklista
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="auth.isLoggedIn()">
+            <a class="nav-link"
+               routerLink="/quotes"
+               routerLinkActive="active"
+               (click)="isNavOpen.set(false)">
+              Mina citat
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="!auth.isLoggedIn()">
+            <a class="nav-link"
+               routerLink="/add-user"
+               routerLinkActive="active"
+               (click)="isNavOpen.set(false)">
+              Registrera
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="!auth.isLoggedIn()">
+            <a class="nav-link"
+               routerLink="/login"
+               routerLinkActive="active"
+               (click)="isNavOpen.set(false)">
+              Logga in <fa-icon [icon]="faUser"></fa-icon>
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="auth.isLoggedIn()">
+            <a class="nav-link" href="#" (click)="logout()">
+              Logga ut <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            </a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center ms-auto">
+          <div class="form-check form-switch text-light">
+            <input class="form-check-input"
+                   type="checkbox"
+                   role="switch"
+                   id="darkModeSwitch"
+                   [checked]="darkMode()"
+                   (change)="toggleDarkMode()" />
+            <label class="form-check-label ms-2" for="darkModeSwitch">
+              Dark
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

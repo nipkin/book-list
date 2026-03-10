@@ -1,0 +1,52 @@
+<div class="container mt-4 form-container">
+  <h2 class="mb-4">Logga in</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" aria-labelledby="loginTitle">
+    <div class="mb-3">
+      <label for="username" class="form-label">Användarnamn</label>
+      <input id="username"
+              class="form-control"
+              type="text"
+              placeholder="Användarnamn"
+              formControlName="userName"
+              [attr.aria-invalid]="loginForm.controls['userName'].invalid"
+              [attr.aria-describedby]="
+          loginForm.controls['userName'].invalid && loginForm.controls['userName'].touched
+            ? 'usernameError' : null" />
+      <small *ngIf="loginForm.controls['userName'].invalid && loginForm.controls['userName'].touched"
+              id="usernameError"
+              class="text-danger">
+        Användarnamn behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Lösenord</label>
+      <input id="password"
+              class="form-control"
+              type="password"
+              placeholder="Lösenord"
+              formControlName="password"
+              [attr.aria-invalid]="loginForm.controls['password'].invalid"
+              [attr.aria-describedby]="
+            loginForm.controls['password'].invalid && loginForm.controls['password'].touched
+            ? 'passwordError' : null" />
+      <small *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+              id="passwordError"
+              class="text-danger">
+        Lösenord behövs
+      </small>
+    </div>
+
+    <button class="btn btn-primary w-100" type="submit">
+      Logga in
+    </button>
+  </form>
+
+  <div *ngIf="error"
+        class="alert alert-danger mt-3 text-center"
+        role="alert"
+        aria-live="polite">
+    {{ error }}
+  </div>
+</div>

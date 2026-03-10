@@ -1,0 +1,85 @@
+# ===============================
+# Visual Studio / .NET
+# ===============================
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.ide
+*.cache
+*.log
+*.DS_Store
+
+# Build output in any folder
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# EF Core migrations snapshots (optional)
+# BookList.Api/Migrations/*.Designer.cs
+# BookList.Api/Migrations/*Snapshot.cs
+
+# Secret configuration files
+**/appsettings*.json
+!**/appSettings.Development.example.json
+
+# Launch settings
+**/Properties/launchSettings.json
+
+# Rider / JetBrains
+.idea/
+
+# ===============================
+# Node / Angular
+# ===============================
+**/node_modules/
+**/.angular/cache/
+**/dist/
+**/.vite/
+*.tsbuildinfo
+
+# Angular environment files with secrets
+**/src/environments/*.ts
+!**/src/environments/environment.example.ts
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# OS / System files
+# ===============================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===============================
+# Optional: generated binaries / compiled dlls
+# ===============================
+*.dll
+*.exe
+*.pdb
+*.runtimeconfig.json
+*.deps.json
+*.nupkg
+*.nuget.g.targets
+*.nuget.g.props
+
+# ===============================
+# IDE / editor configs
+# ===============================
+.vscode/
+*.code-workspace
+.editorconfig
+
+# ===============================
+# Temporary / backup files
+# ===============================
+*.bak
+*.tmp
+*.swp
+*.swo
+*.old

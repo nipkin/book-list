@@ -1,0 +1,46 @@
+﻿using Microsoft.EntityFrameworkCore;
+using BookList.Api.Data;
+using BookList.Api.Domain;
+
+namespace BookList.Api.Repositories
+{
+    public class QuoteRepository(BookListDbContext bookListDbContext) : IQuoteRepository
+    {
+        private readonly BookListDbContext _bookListDbContext = bookListDbContext;
+
+        public void AddQuote(Quote quote)
+        {
+            _bookListDbContext.Quotes.Add(quote);
+        }
+
+        public void RemoveQuote(Quote quote)
+        {
+            _bookListDbContext.Quotes.Remove(quote);
+        }
+
+        public void UpdateQuote(Quote quote)
+        {
+            _bookListDbContext.Quotes.Update(quote);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _bookListDbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Quote>?> GetQuotesByUserIdAsync(int id)
+        {
+            var quotes = await _bookListDbContext.Quotes.Where(q => q.AppUserId == id).ToListAsync();
+            if (quotes.Count <= 0) {
+                return null;
+            }
+
+            return quotes;
+        }
+
+        public async Task<Quote?> GetQuoteByIdAsync(int id)
+        {
+            return await _bookListDbContext.Quotes.FindAsync(id);
+        }
+    }
+}

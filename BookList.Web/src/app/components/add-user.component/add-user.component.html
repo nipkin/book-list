@@ -1,0 +1,73 @@
+<div class="container mt-4 form-container">
+  <h2 class="mb-3" id="addUserTitle">Registrera användare</h2>
+
+  <form [formGroup]="addUserForm"
+        (ngSubmit)="onSubmit()"
+        aria-labelledby="addUserTitle">
+    <div class="mb-3">
+      <label for="username" class="form-label">Användarnamn</label>
+      <input id="username"
+             class="form-control"
+             type="text"
+             formControlName="username"
+             [attr.aria-invalid]="addUserForm.controls['username'].invalid"
+             [attr.aria-describedby]="
+          addUserForm.controls['username'].invalid ? 'usernameError' : null" />
+      <small *ngIf="addUserForm.controls['username'].invalid && addUserForm.controls['username'].touched"
+             id="usernameError"
+             class="text-danger">
+        Användarnamn behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Lösenord</label>
+      <input id="password"
+             class="form-control"
+             type="password"
+             formControlName="password"
+             [attr.aria-invalid]="addUserForm.controls['password'].invalid"
+             [attr.aria-describedby]="
+          addUserForm.controls['password'].invalid ? 'passwordError' : null" />
+      <small *ngIf="addUserForm.controls['password'].invalid && addUserForm.controls['password'].touched"
+             id="passwordError"
+             class="text-danger">
+        Lösenord behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label">Bekräfta lösenord</label>
+      <input id="confirmPassword"
+             class="form-control"
+             type="password"
+             formControlName="confirmPassword"
+             [attr.aria-invalid]="addUserForm.controls['confirmPassword'].invalid"
+             [attr.aria-describedby]="
+          addUserForm.controls['confirmPassword'].invalid ? 'confirmPasswordError' : null" />
+      <small *ngIf="addUserForm.controls['confirmPassword'].invalid && addUserForm.controls['confirmPassword'].touched"
+             id="confirmPasswordError"
+             class="text-danger">
+        Bekräfta lösenord behövs
+      </small>
+    </div>
+
+    <button class="btn btn-success w-100" type="submit">
+      Skapa användare
+    </button>
+  </form>
+
+  <div *ngIf="errorMessage"
+       class="alert alert-danger mt-3"
+       role="alert"
+       aria-live="polite">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage"
+       class="alert alert-success mt-3"
+       role="alert"
+       aria-live="polite">
+    {{ successMessage }}
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="container mt-4 form-container">
+  <h2 class="mb-3" id="updateBookTitle">Uppdatera bok</h2>
+
+  <form [formGroup]="updateBookForm"
+        (ngSubmit)="onSubmit()"
+        aria-labelledby="updateBookTitle">
+    <div class="mb-3">
+      <label for="bookTitle" class="form-label">Titel</label>
+      <input id="bookTitle"
+             class="form-control"
+             type="text"
+             formControlName="title"
+             [attr.aria-invalid]="updateBookForm.controls['title'].invalid"
+             [attr.aria-describedby]="
+          updateBookForm.controls['title'].invalid ? 'titleError' : null" />
+      <small *ngIf="updateBookForm.controls['title'].invalid && updateBookForm.controls['title'].touched"
+             id="titleError"
+             class="text-danger">
+        Titel behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="bookAuthor" class="form-label">Författare</label>
+      <input id="bookAuthor"
+             class="form-control"
+             type="text"
+             formControlName="author"
+             [attr.aria-invalid]="updateBookForm.controls['author'].invalid"
+             [attr.aria-describedby]="
+          updateBookForm.controls['author'].invalid ? 'authorError' : null" />
+      <small *ngIf="updateBookForm.controls['author'].invalid && updateBookForm.controls['author'].touched"
+             id="authorError"
+             class="text-danger">
+        Author is required
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="bookYear" class="form-label">Utgivningsår</label>
+      <input id="bookYear"
+             class="form-control"
+             type="date"
+             formControlName="year"
+             [attr.aria-invalid]="updateBookForm.controls['year'].invalid"
+             [attr.aria-describedby]="
+          updateBookForm.controls['year'].invalid ? 'yearError' : null" />
+      <small *ngIf="updateBookForm.controls['year'].invalid && updateBookForm.controls['year'].touched"
+             id="yearError"
+             class="text-danger">
+        Year is required
+      </small>
+    </div>
+
+    <button class="btn btn-primary w-100" type="submit">
+      Uppdatera bok
+    </button>
+  </form>
+
+  <div *ngIf="errorMessage"
+       class="alert alert-danger mt-3"
+       role="alert"
+       aria-live="polite">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage"
+       class="alert alert-success mt-3"
+       role="alert"
+       aria-live="polite">
+    {{ successMessage }}
+  </div>
+</div>

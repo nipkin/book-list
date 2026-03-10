@@ -1,0 +1,74 @@
+<div class="container mt-4 form-container">
+  <h2 class="mb-3" id="addBookTitle">Lägg till bok</h2>
+
+  <form
+    [formGroup]="addBookForm"
+    (ngSubmit)="onSubmit()"
+    aria-labelledby="addBookTitle">
+    <div class="mb-3">
+      <label for="bookTitle" class="form-label">Titel</label>
+      <input
+        id="bookTitle"
+        class="form-control"
+        type="text"
+        formControlName="title"
+        [attr.aria-invalid]="addBookForm.controls['title'].invalid"
+        [attr.aria-describedby]="
+          addBookForm.controls['title'].invalid ? 'titleError' : null" />
+      <small
+        *ngIf="addBookForm.controls['title'].invalid && addBookForm.controls['title'].touched"
+        id="titleError"
+        class="text-danger">
+        Titel behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="bookAuthor" class="form-label">Författare</label>
+      <input
+        id="bookAuthor"
+        class="form-control"
+        type="text"
+        formControlName="author"
+        [attr.aria-invalid]="addBookForm.controls['author'].invalid"
+        [attr.aria-describedby]="
+          addBookForm.controls['author'].invalid ? 'authorError' : null" />
+      <small
+        *ngIf="addBookForm.controls['author'].invalid && addBookForm.controls['author'].touched"
+        id="authorError"
+        class="text-danger">
+        Författare behövs
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label for="bookYear" class="form-label">Utgivningsår</label>
+      <input
+        id="bookYear"
+        class="form-control"
+        type="date"
+        formControlName="year"
+        [attr.aria-invalid]="addBookForm.controls['year'].invalid"
+        [attr.aria-describedby]="
+          addBookForm.controls['year'].invalid ? 'yearError' : null" />
+      <small
+        *ngIf="addBookForm.controls['year'].invalid && addBookForm.controls['year'].touched"
+        id="yearError"
+        class="text-danger">
+        År behövs
+      </small>
+    </div>
+
+    <button class="btn btn-success w-100" type="submit">
+      Lägg till bok
+    </button>
+  </form>
+
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger mt-3"
+    role="alert"
+    aria-live="polite">
+    {{ errorMessage }}
+  </div>
+</div>

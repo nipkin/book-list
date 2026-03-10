@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BookList.Api/BookList.Api.csproj" />
+  <Project Path="BookList.Web/BookList.Web.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
