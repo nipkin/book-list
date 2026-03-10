@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookList.Api.Migrations
 {
     [DbContext(typeof(BookListDbContext))]
-    [Migration("20260310142730_202603101527")]
-    partial class _202603101527
+    [Migration("20260310152909_SyncModel")]
+    partial class SyncModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

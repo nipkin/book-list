@@ -5,7 +5,7 @@
 namespace BookList.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class _202603101527 : Migration
+    public partial class SyncModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
