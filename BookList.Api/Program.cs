@@ -99,6 +99,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection(); // only force HTTPS in production
 }
 
+if (app.Environment.IsProduction())
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<BookListDbContext>();
+    db.Database.Migrate();
+}
+
 app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
