@@ -16,7 +16,7 @@ namespace BookList.Api.Controllers
             Response.Cookies.Append("AuthToken", token, new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.None,
                 Secure = true,
                 Path = "/",
                 Expires = DateTime.UtcNow.AddHours(1)
@@ -70,7 +70,8 @@ namespace BookList.Api.Controllers
             Response.Cookies.Append("AuthToken", "", new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.None,
+                Secure = true,
                 Path = "/",
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
