@@ -28,9 +28,9 @@ namespace BookList.Api.Repositories
             return await _bookListDbContext.AppUsers.FindAsync(id);
         }
 
-        public async Task<AppUser?> GetUserByNameAsync(string userName)
+        public async Task<AppUser?> GetUserByNameAsync(string username)
         {
-            return await _bookListDbContext.AppUsers.FirstOrDefaultAsync(x => x.UserName == userName.ToString());
+            return await _bookListDbContext.AppUsers.FirstOrDefaultAsync(x => x.Username == username.ToString());
         }
 
         public async Task SaveAsync()

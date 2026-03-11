@@ -58,10 +58,6 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    // TEMP DEBUG
-    Console.WriteLine($">>> JWT Key value: '{builder.Configuration["Jwt:Key"]}'");
-    Console.WriteLine($">>> JWT Env var: '{Environment.GetEnvironmentVariable("Jwt__Key")}'");
-
     var jwtKey = builder.Configuration["Jwt:Key"];
     if (string.IsNullOrEmpty(jwtKey))
         throw new InvalidOperationException("Jwt:Key is not configured!");
@@ -79,7 +75,6 @@ builder.Services.AddAuthentication(options =>
     {
         OnMessageReceived = context =>
         {
-            // read token from cookie
             context.Token = context.Request.Cookies["AuthToken"];
             return Task.CompletedTask;
         }
@@ -96,7 +91,7 @@ if (app.Environment.IsDevelopment())
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseHttpsRedirection(); // only force HTTPS in production
+    app.UseHttpsRedirection();
 }
 
 if (app.Environment.IsProduction())

@@ -38,14 +38,14 @@ namespace BookList.Api.Services
                 return new AddUserResponse { Success = false, ErrorMessage = "Passwords do not match" };
             }
 
-            var userExists = await UserExistsAsync(request.UserName);
+            var userExists = await UserExistsAsync(request.Username);
             if (userExists) {
                 return new AddUserResponse { Success = false, ErrorMessage = "Username already exists" };
             }
 
             var user = new AppUser
             {
-                UserName = request.UserName,
+                Username = request.Username,
             };
             user.PasswordHash = _hasher.HashPassword(user, request.Password);
 
@@ -68,7 +68,7 @@ namespace BookList.Api.Services
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 

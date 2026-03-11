@@ -71,7 +71,7 @@ namespace BookList.Api.Services
             var quote = await _quoteRepository.GetQuoteByIdAsync(id);
             if (quote == null)
             {
-                throw new Exception("Quote not found");
+                return;
             }
 
             _quoteRepository.RemoveQuote(quote);

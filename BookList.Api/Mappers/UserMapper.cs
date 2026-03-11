@@ -10,7 +10,7 @@ namespace BookList.Api.Mappers
             return new UserResponse
             {
                 Id = user.Id,
-                Username = user.UserName
+                Username = user.Username
             };
         }
     }
