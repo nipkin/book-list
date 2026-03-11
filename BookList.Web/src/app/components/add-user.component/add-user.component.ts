@@ -52,8 +52,8 @@ export class AddUserComponent {
           this.errorMessage = response.errorMessage ?? 'Något gick fel';
         }
       },
-      error: () => {
-        this.errorMessage = 'Något gick fel';
+      error: (err) => {
+        this.errorMessage = err.error == 'Username already exists' ? 'Användarnamnet existerar redan' : 'Något gick fel';
       }
     });
   }
