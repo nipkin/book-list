@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookResponse } from '../models/book-response';
@@ -11,8 +11,7 @@ import { environment } from '../../environments/environment';
 
 export class BookService {
   private apiUrl = environment.apiUrl + '/api/book';
-
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getBook(id: number): Observable<BookResponse> {
     return this.http.get<BookResponse>(this.apiUrl + '/' + id, { withCredentials: true });

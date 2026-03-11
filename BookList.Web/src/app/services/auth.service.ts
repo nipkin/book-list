@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, of, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -27,14 +27,21 @@ export interface AddUserResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = environment.apiUrl + '/api/auth';
+  private http = inject(HttpClient);
 
   private _isLoggedIn = signal<boolean>(false);
   private _isChecked = signal<boolean>(false);
 
   public isLoggedIn = computed(() => this._isLoggedIn());
   public isChecked = computed(() => this._isChecked());
-
-  constructor(private http: HttpClient) { }
+  
+  constructor() {
+    setInterval(() => {
+      if (this._isLoggedIn()) {
+        this.checkAuth(true).subscribe();
+      }
+    }, 15 * 60 * 1000);
+  }
 
   checkAuth(forceRefresh = false): Observable<{ authenticated: boolean }> {
     if (this._isChecked() && !forceRefresh) {

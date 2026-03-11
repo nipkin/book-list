@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QuoteRequest } from '../models/quote-request';
@@ -14,10 +14,8 @@ interface UserQuotesResponse {
 })
 
 export class QuoteService {
-
   private apiUrl = environment.apiUrl + '/api/quote';
-
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   addQuote(payload: QuoteRequest): Observable<QuoteResponse> {
     return this.http.post<QuoteResponse>(this.apiUrl + '/add', payload, { withCredentials: true });
