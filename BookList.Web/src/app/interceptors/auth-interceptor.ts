@@ -14,10 +14,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        auth.clearSession(); // reset signals
-        router.navigate(['/login'], {
-          queryParams: { reason: 'session_expired' }
-        });
+        // Don't redirect if it's just the auth check
+        if (!req.url.includes('/auth/check')) {
+          auth.clearSession();
+          router.navigate(['/login'], {
+            queryParams: { reason: 'session_expired' }
+          });
+        } else {
+          auth.clearSession();
+        }
       }
       return throwError(() => error);
     })
