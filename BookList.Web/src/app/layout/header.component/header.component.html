@@ -1,7 +1,7 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg data-bs-theme">
     <div class="container">
-      <a class="navbar-brand" routerLink="/">Biblioteket</a>
+      <a class="navbar-brand mb-px" routerLink="/">Biblioteket</a>
 
       <button class="navbar-toggler"
               type="button"
@@ -15,7 +15,7 @@
            [class.collapse]="!isNavOpen()"
            [class.show]="isNavOpen()"
            id="mainNavbar">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bolder">
           <li class="nav-item">
             <a class="nav-link"
                routerLink="/"
@@ -61,14 +61,14 @@
         </ul>
 
         <div class="d-flex align-items-center ms-auto">
-          <div class="form-check form-switch text-light">
-            <input class="form-check-input"
+          <div class="form-check form-switch ">
+            <input class="form-check-input border-1 border-dark"
                    type="checkbox"
                    role="switch"
                    id="darkModeSwitch"
                    [checked]="darkMode()"
                    (change)="toggleDarkMode()" />
-            <label class="form-check-label ms-2" for="darkModeSwitch">
+            <label class="form-check-label ms-2 fw-bolder" for="darkModeSwitch">
               Mörkt läge
             </label>
           </div>

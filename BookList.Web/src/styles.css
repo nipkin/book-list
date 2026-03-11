@@ -8,3 +8,11 @@
 .button-group {
     min-width: 150px;
 }
+
+.mb-px {
+  margin-bottom: 1px !important;
+}
+
+[data-bs-theme="light"] .navbar {
+  background-color: #f2f2f2 !important; /* light grey in dark mode */
+}
