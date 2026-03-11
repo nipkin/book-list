@@ -11,9 +11,12 @@ import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './header.component.html',
   standalone: true
 })
-
 export class HeaderComponent {
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService) {
+    const saved = localStorage.getItem('darkMode') === 'true';
+    this.darkMode = signal(saved);
+    document.documentElement.setAttribute('data-bs-theme', saved ? 'dark' : 'light');
+  }
 
   isNavOpen = signal(false);
   darkMode = signal(false);
@@ -31,7 +34,7 @@ export class HeaderComponent {
 
   toggleDarkMode() {
     this.darkMode.update(v => !v);
-
+    localStorage.setItem('darkMode', String(this.darkMode()));
     document.documentElement.setAttribute(
       'data-bs-theme',
       this.darkMode() ? 'dark' : 'light'
