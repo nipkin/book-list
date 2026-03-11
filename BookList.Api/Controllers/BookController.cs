@@ -17,11 +17,6 @@ namespace BookList.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var books = await _bookService.GetAllBooksAsync();
-            if(books != null && books.Count == 0)
-            {
-                return NotFound(new { message = "No books found" });
-            }
-
             return Ok(books);
         }
 
