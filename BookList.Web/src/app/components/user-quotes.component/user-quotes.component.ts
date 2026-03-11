@@ -65,8 +65,13 @@ export class UserQuotesComponent {
       return;
     }
 
-    this.quoteService.deleteQuote(id).subscribe(() => {
-      this.load();
+    this.quoteService.deleteQuote(id).subscribe({
+      next: () => {
+        this.load();
+      },
+      error: () => {
+       this.errorMessage = 'Något gick fel när citatet skulle tas bort';
+      }
     });
   }
 

@@ -39,7 +39,6 @@ export class LoginComponent {
     this.authService.login(payload).subscribe({
       next: (response) => {
         if (response.success) {
-          console.log("Login successful");
           this.router.navigate(['/']);
         } else {
           this.error = response.errorMessage ?? "Inloggningen misslyckades";

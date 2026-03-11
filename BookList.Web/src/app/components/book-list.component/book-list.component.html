@@ -40,4 +40,11 @@
       Lägg till ny bok
     </a>
   </div>
+
+  <div *ngIf="errorMessage"
+       class="alert alert-danger mt-3"
+       role="alert"
+       aria-live="polite">
+    {{ errorMessage }}
+  </div>
 </div>

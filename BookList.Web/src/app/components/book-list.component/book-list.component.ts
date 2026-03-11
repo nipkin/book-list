@@ -16,6 +16,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 export class BookListComponent implements OnInit {
   books: BookResponse[] = [];
   faBook = faBook;
+  errorMessage = '';
 
   private bookService = inject(BookService);
   private router = inject(Router);
@@ -31,7 +32,7 @@ export class BookListComponent implements OnInit {
         this.books = data;
       },
       error: () => {
-        console.error('Failed to load books');
+        this.errorMessage = 'Något gick fel när böckerna skulle hämtas.';
       }
     });
   }
@@ -51,7 +52,7 @@ export class BookListComponent implements OnInit {
         this.loadBooks();
       },
       error: () => {
-        console.error('Något gick fel när boken skulle tas bort');
+        this.errorMessage = 'Något gick fel när boken skulle tas bort';
       }
     });
   }

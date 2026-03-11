@@ -41,7 +41,7 @@ export class UpdateBookComponent {
         });
       },
       error: () => {
-        this.errorMessage = 'Could not fetch book data';
+        this.errorMessage = 'Kunde inte hämta boken';
       }
     });
   }
