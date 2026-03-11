@@ -7,14 +7,12 @@
 
         <span *ngIf="!item.editing" class="mb-2 mb-md-0">{{ item.value }}</span>
 
-        <input *ngIf="item.editing"
-               class="form-control mb-2 mb-md-0"
-               style="max-width:400px"
-               type="text"
+        <textarea *ngIf="item.editing"
+               class="form-control mb-2 mb-md-0 form-container"
                [(ngModel)]="item.tempValue"
-               aria-label="Redigera citat" />
+               aria-label="Redigera citat"></textarea>
 
-        <div class="btn-group flex-wrap" role="group" aria-label="Hantera citat">
+        <div class="btn-group flex-wrap ms-md-2 button-group" role="group" aria-label="Hantera citat">
           <button *ngIf="!item.editing"
                   class="btn btn-outline-primary btn-sm me-1 mb-1 mb-md-0"
                   (click)="edit(item)">
@@ -40,12 +38,12 @@
       </div>
     </li>
   </ul>
-  <div class="d-flex flex-column mt-3 gap-2 align-items-start">
-    <input type="text"
+  <div class="d-flex flex-column mt-3 gap-2 align-items-start form-container">
+    <textarea
            class="form-control"
            [(ngModel)]="newValue"
            placeholder="Nytt citat"
-           aria-label="Nytt citat">
+           aria-label="Nytt citat"></textarea>
     <button class="btn btn-success"
             type="button"
             (click)="add()">

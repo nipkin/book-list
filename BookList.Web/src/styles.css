@@ -4,3 +4,7 @@
 .form-container {
   max-width: 500px;
 }
+
+.button-group {
+    min-width: 150px;
+}

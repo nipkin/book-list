@@ -48,6 +48,10 @@ export class UserQuotesComponent {
       this.errorMessage = 'Du kan bara ha 5 citat.';
       return;
     }
+    if (this.newValue.trim() === '') {
+      this.errorMessage = 'Texten för citatet behövs';
+      return;
+    }
     this.quoteService.addQuote(payload).subscribe(() => {
         this.newValue = '';
         this.load();
