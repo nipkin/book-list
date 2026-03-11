@@ -4,15 +4,18 @@ import { Router, RouterModule } from '@angular/router';
 import { BookService } from '../../services/book.service';
 import { AuthService } from '../../services/auth.service';
 import { BookResponse } from '../../models/book-response';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'book-list',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule],
   templateUrl: './book-list.component.html',
   standalone: true
 })
 export class BookListComponent implements OnInit {
   books: BookResponse[] = [];
+  faBook = faBook;
 
   private bookService = inject(BookService);
   private router = inject(Router);

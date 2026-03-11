@@ -3,7 +3,8 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QuoteRequest } from '../../models/quote-request';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 interface EditableItem {
   id: number
   value: string;
@@ -13,7 +14,7 @@ interface EditableItem {
 
 @Component({
   selector: 'user-quotes',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule],
   templateUrl: './user-quotes.component.html',
   standalone: true
 })
@@ -21,6 +22,7 @@ export class UserQuotesComponent {
   items: EditableItem[] = [];
   newValue = '';
   errorMessage = '';
+  faQuoteLeft = faQuoteLeft;
 
   private quoteService = inject(QuoteService);
 
