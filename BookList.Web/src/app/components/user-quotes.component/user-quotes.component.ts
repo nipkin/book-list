@@ -55,8 +55,9 @@ export class UserQuotesComponent {
       return;
     }
     this.quoteService.addQuote(payload).subscribe(() => {
-        this.newValue = '';
-        this.load();
+      this.newValue = '';
+      this.errorMessage = '';
+      this.load();
     });
   }
 

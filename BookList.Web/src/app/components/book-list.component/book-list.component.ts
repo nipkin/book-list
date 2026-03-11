@@ -29,6 +29,7 @@ export class BookListComponent implements OnInit {
   loadBooks() {
     this.bookService.getAll().subscribe({
       next: (data) => {
+        this.errorMessage = '';
         this.books = data;
       },
       error: () => {
@@ -49,6 +50,7 @@ export class BookListComponent implements OnInit {
 
     this.bookService.deleteBook(id).subscribe({
       next: () => {
+        this.errorMessage = '';
         this.loadBooks();
       },
       error: () => {
