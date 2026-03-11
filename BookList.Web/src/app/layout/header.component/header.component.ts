@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +12,9 @@ import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
   standalone: true
 })
 export class HeaderComponent {
-  constructor(public auth: AuthService) {
+  public auth = inject(AuthService);
+
+  constructor() {
     const saved = localStorage.getItem('darkMode') === 'true';
     this.darkMode = signal(saved);
     document.documentElement.setAttribute('data-bs-theme', saved ? 'dark' : 'light');
