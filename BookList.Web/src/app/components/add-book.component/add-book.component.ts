@@ -27,7 +27,10 @@ export class AddBookComponent {
   }
 
   onSubmit() {
-    if (this.addBookForm.invalid) return;
+    if (this.addBookForm.invalid) {
+      this.addBookForm.markAllAsTouched();
+      return;
+    }
     const payload: BookRequest = {
       title: this.addBookForm.value.title!,
       author: this.addBookForm.value.author!,
@@ -42,5 +45,9 @@ export class AddBookComponent {
         this.errorMessage = 'Server error';
       }
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/']);
   }
 }

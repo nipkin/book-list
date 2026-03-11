@@ -26,7 +26,10 @@ export class AddUserComponent {
   }
 
   onSubmit() {
-    if (this.addUserForm.invalid) return;
+    if (this.addUserForm.invalid) {
+      this.addUserForm.markAllAsTouched();
+      return;
+    }
 
     if (this.addUserForm.value.password !== this.addUserForm.value.confirmPassword) {
       this.errorMessage = 'Lösenorden matchar inte';

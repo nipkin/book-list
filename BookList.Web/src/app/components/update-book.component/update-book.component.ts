@@ -47,7 +47,10 @@ export class UpdateBookComponent {
   }
 
   onSubmit() {
-    if (this.updateBookForm.invalid) return;
+    if (this.updateBookForm.invalid) {
+      this.updateBookForm.markAllAsTouched();
+      return;
+    }
 
     const payload: BookRequest = {
       title: this.updateBookForm.value.title!,
@@ -65,5 +68,9 @@ export class UpdateBookComponent {
         }
       });
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/']);
   }
 }
