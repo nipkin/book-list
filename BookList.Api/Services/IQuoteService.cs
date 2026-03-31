@@ -8,6 +8,6 @@ namespace BookList.Api.Services
         Task<QuoteResponse?> AddQuoteAsync(int userId, QuoteRequest request);
         Task<UserQuotesResponse?> GetUserQuotesAsync(int userId);
         Task<QuoteResponse?> UpdateQuoteAsync(int id, QuoteRequest request);
-        Task DeleteQuoteByIdAsync(int id);
+        Task<bool> DeleteQuoteByIdAsync(int id);
     }
 }

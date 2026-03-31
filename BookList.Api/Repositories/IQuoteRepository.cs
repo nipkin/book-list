@@ -7,7 +7,7 @@ namespace BookList.Api.Repositories
         void AddQuote(Quote quote);
         void RemoveQuote(Quote quote);
         void UpdateQuote(Quote quote);
-        Task<List<Quote>?> GetQuotesByUserIdAsync(int id);
+        Task<IEnumerable<Quote>?> GetQuotesByUserIdAsync(int id);
         Task<Quote?> GetQuoteByIdAsync(int id);
         Task SaveAsync();
     }

@@ -7,7 +7,7 @@ namespace BookList.Api.Services
         Task<BookResponse?> AddBookAsync(BookRequest request);
         Task<BookResponse?> UpdateBookAsync(int id, BookRequest request);
         Task<BookResponse?> GetBookByIdAsync(int id);
-        Task<List<BookResponse>> GetAllBooksAsync();
-        Task DeleteBookAsync(int id);
+        Task<IEnumerable<BookResponse>> GetAllBooksAsync();
+        Task<bool> DeleteBookAsync(int id);
     }
 }

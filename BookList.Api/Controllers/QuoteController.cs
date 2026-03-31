@@ -11,8 +11,6 @@ namespace BookList.Api.Controllers
     [ApiController]
     public class QuoteController(IQuoteService quoteService) : ControllerBase
     {
-        private readonly IQuoteService _quoteService = quoteService;
-
         [HttpGet("user")]
         public async Task<IActionResult> UserQuotes()
         {
@@ -21,7 +19,7 @@ namespace BookList.Api.Controllers
                 return BadRequest(new { message = "User not found" });
             }
 
-            var quotes = await _quoteService.GetUserQuotesAsync(userId);
+            var quotes = await quoteService.GetUserQuotesAsync(userId);
             if (quotes == null)
             {
                 return BadRequest(new { message = "User not found" });
@@ -33,7 +31,7 @@ namespace BookList.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var quote = await _quoteService.GetQuoteByIdAsync(id);
+            var quote = await quoteService.GetQuoteByIdAsync(id);
             if(quote == null)
             {
                 return NotFound(new { message = "Quote not found" });
@@ -54,12 +52,12 @@ namespace BookList.Api.Controllers
                 return BadRequest(new { message = "User not found" });
             }
 
-            var quotes = await _quoteService.GetUserQuotesAsync(userId);
+            var quotes = await quoteService.GetUserQuotesAsync(userId);
             if(quotes != null && quotes.UserQuotes.Count >= 5) {
                 return BadRequest(new { message = "You have reached the maximum number of quotes (5)" });
             }
 
-            var quote = await _quoteService.AddQuoteAsync(userId, quoteRequest);
+            var quote = await quoteService.AddQuoteAsync(userId, quoteRequest);
             if(quote == null) {
                 return BadRequest(new { message = "Failed to create quote" });
             }
@@ -75,7 +73,7 @@ namespace BookList.Api.Controllers
                 BadRequest(ModelState);
             }
 
-            var updatedBook = await _quoteService.UpdateQuoteAsync(id, quoteRequest);
+            var updatedBook = await quoteService.UpdateQuoteAsync(id, quoteRequest);
 
             return Ok(updatedBook);
         }
@@ -83,12 +81,16 @@ namespace BookList.Api.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var quote = await _quoteService.GetQuoteByIdAsync(id);
+            var quote = await quoteService.GetQuoteByIdAsync(id);
             if(quote == null) {
                 return NotFound(new { message = "Quote not found" });
             }
 
-            await _quoteService.DeleteQuoteByIdAsync(id);
+            var deleted = await quoteService.DeleteQuoteByIdAsync(id);
+
+            if(!deleted) {
+                return BadRequest(new { message = "Failed to delete quote" });
+            }
 
             return NoContent();
         }

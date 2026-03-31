@@ -11,13 +11,11 @@ namespace BookList.Api.Services
 {
     public class AuthService(IUserRepository userRepository, IConfiguration configuration) : IAuthService
     {
-        private readonly IConfiguration _config = configuration;
-        private readonly IUserRepository _userRepository = userRepository;
         private readonly PasswordHasher<AppUser> _hasher = new();
 
         public async Task<LoginResponse> AuthUserAsync(LoginRequest request)
         {
-            var user = await _userRepository.GetUserByNameAsync(request.Username);
+            var user = await userRepository.GetUserByNameAsync(request.Username);
             if (user == null) { 
                 return new LoginResponse { Success = false, ErrorMessage = "User does not exist" };
             }
@@ -49,20 +47,20 @@ namespace BookList.Api.Services
             };
             user.PasswordHash = _hasher.HashPassword(user, request.Password);
 
-            _userRepository.AddUser(user);
-            await _userRepository.SaveAsync();
+            userRepository.AddUser(user);
+            await userRepository.SaveAsync();
             return new AddUserResponse { Success = true };
         }
 
         public async Task<bool> UserExistsAsync(string username)
         {
-            var user = await _userRepository.GetUserByNameAsync(username);
+            var user = await userRepository.GetUserByNameAsync(username);
             return user != null;
         }
 
         public string CreateToken(AppUser user)
         {
-            var jwtSettings = _config.GetSection("Jwt");
+            var jwtSettings = configuration.GetSection("Jwt");
             var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 

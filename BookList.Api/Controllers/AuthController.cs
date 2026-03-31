@@ -1,4 +1,5 @@
 ﻿using BookList.Api.Dtos;
+using BookList.Api.Repositories;
 using BookList.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,8 @@ namespace BookList.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(IAuthService authService) : ControllerBase
+    public class AuthController(IAuthService authService, IUserRepository userRepository) : ControllerBase
     {
-        private readonly IAuthService _authService = authService;
-
         private void SetAuthCookie(string token)
         {
             Response.Cookies.Append("AuthToken", token, new CookieOptions
@@ -30,7 +29,7 @@ namespace BookList.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await _authService.AuthUserAsync(request);
+            var response = await authService.AuthUserAsync(request);
             if (!response.Success) {                 
                 return BadRequest(response.ErrorMessage);
             }
@@ -47,23 +46,25 @@ namespace BookList.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var response = await _authService.AddUserAsync(value);
+            var response = await authService.AddUserAsync(value);
             if(!response.Success)
             {
                 return BadRequest(response.ErrorMessage);
             }
+
             return Ok(response);
         }
 
         [Authorize]
         [HttpGet("check")]
-        public IActionResult Check()
+        public async Task<IActionResult> Check()
         {
-            var token = Request.Cookies["AuthToken"];
-            if (!string.IsNullOrEmpty(token))
-            {
-                SetAuthCookie(token);
-            }
+            var username = User.Identity!.Name!;
+            var user = await userRepository.GetUserByNameAsync(username);
+            if (user == null) return Unauthorized();
+
+            var freshToken = authService.CreateToken(user);
+            SetAuthCookie(freshToken);
 
             return Ok(new { authenticated = true });
         }

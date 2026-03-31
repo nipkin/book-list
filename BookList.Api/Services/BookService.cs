@@ -6,43 +6,42 @@ namespace BookList.Api.Services
 {
     public class BookService(IBookRepository bookRepository) : IBookService
     {
-        private readonly IBookRepository _bookRepository = bookRepository;
-
         public async Task<BookResponse?> AddBookAsync(BookRequest request)
         {
             var book = request.ToEntity();
-            _bookRepository.AddBook(book);
-            await _bookRepository.SaveAsync();
+            bookRepository.AddBook(book);
+            await bookRepository.SaveAsync();
             return book.ToResponse();
         }
 
         public async Task<BookResponse?> UpdateBookAsync(int id, BookRequest request)
         {
-            var book = await _bookRepository.GetBookByIdAsync(id);
+            var book = await bookRepository.GetBookByIdAsync(id);
             if (book == null)
             {
                 return null;
             }
             book.UpdateFromRequest(request);
-            _bookRepository.UpdateBook(book);
-            await _bookRepository.SaveAsync();
+            bookRepository.UpdateBook(book);
+            await bookRepository.SaveAsync();
             return book.ToResponse();
         }
 
-        public async Task DeleteBookAsync(int id)
+        public async Task<bool> DeleteBookAsync(int id)
         {
-            var book = await _bookRepository.GetBookByIdAsync(id);
+            var book = await bookRepository.GetBookByIdAsync(id);
             if (book == null)
             {
-                return;
+                return false;
             }
-            _bookRepository.RemoveBook(book);
-            await _bookRepository.SaveAsync();
+            bookRepository.RemoveBook(book);
+            await bookRepository.SaveAsync();
+            return true;
         }
 
         public async Task<BookResponse?> GetBookByIdAsync(int id)
         {
-            var book = await _bookRepository.GetBookByIdAsync(id);
+            var book = await bookRepository.GetBookByIdAsync(id);
             if (book == null)
             {
                 return null;
@@ -50,9 +49,9 @@ namespace BookList.Api.Services
             return book.ToResponse();
         }
 
-        public async Task<List<BookResponse>> GetAllBooksAsync()
+        public async Task<IEnumerable<BookResponse>> GetAllBooksAsync()
         {
-            var books = await _bookRepository.GetAllBooksAsync();
+            var books = await bookRepository.GetAllBooksAsync();
             return books.Select(b => b.ToResponse()).ToList();
         }
     }

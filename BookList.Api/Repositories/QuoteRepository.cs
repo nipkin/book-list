@@ -6,31 +6,29 @@ namespace BookList.Api.Repositories
 {
     public class QuoteRepository(BookListDbContext bookListDbContext) : IQuoteRepository
     {
-        private readonly BookListDbContext _bookListDbContext = bookListDbContext;
-
         public void AddQuote(Quote quote)
         {
-            _bookListDbContext.Quotes.Add(quote);
+            bookListDbContext.Quotes.Add(quote);
         }
 
         public void RemoveQuote(Quote quote)
         {
-            _bookListDbContext.Quotes.Remove(quote);
+            bookListDbContext.Quotes.Remove(quote);
         }
 
         public void UpdateQuote(Quote quote)
         {
-            _bookListDbContext.Quotes.Update(quote);
+            bookListDbContext.Quotes.Update(quote);
         }
 
         public async Task SaveAsync()
         {
-            await _bookListDbContext.SaveChangesAsync();
+            await bookListDbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Quote>?> GetQuotesByUserIdAsync(int id)
+        public async Task<IEnumerable<Quote>?> GetQuotesByUserIdAsync(int id)
         {
-            var quotes = await _bookListDbContext.Quotes.Where(q => q.AppUserId == id).ToListAsync();
+            var quotes = await bookListDbContext.Quotes.Where(q => q.AppUserId == id).ToListAsync();
             if (quotes.Count <= 0) {
                 return null;
             }
@@ -40,7 +38,7 @@ namespace BookList.Api.Repositories
 
         public async Task<Quote?> GetQuoteByIdAsync(int id)
         {
-            return await _bookListDbContext.Quotes.FindAsync(id);
+            return await bookListDbContext.Quotes.FindAsync(id);
         }
     }
 }

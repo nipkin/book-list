@@ -10,13 +10,11 @@ namespace BookList.Api.Controllers
     [ApiController]
     public class BookController(IBookService bookService) : ControllerBase
     {
-        private readonly IBookService _bookService = bookService;
-
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var books = await _bookService.GetAllBooksAsync();
+            var books = await bookService.GetAllBooksAsync();
             return Ok(books);
         }
 
@@ -24,7 +22,7 @@ namespace BookList.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
+            var book = await bookService.GetBookByIdAsync(id);
             if(book == null)
             {
                 return NotFound(new { message = "Book not found" });
@@ -41,7 +39,7 @@ namespace BookList.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var book = await _bookService.AddBookAsync(bookRequest);
+            var book = await bookService.AddBookAsync(bookRequest);
             if(book == null) 
             {
                 return BadRequest(new { message = "Failed to create book" });
@@ -57,7 +55,7 @@ namespace BookList.Api.Controllers
             {
                 BadRequest(ModelState);
             }
-            var updatedBook = await _bookService.UpdateBookAsync(id, bookRequest);
+            var updatedBook = await bookService.UpdateBookAsync(id, bookRequest);
 
             return Ok(updatedBook);
         }
@@ -65,13 +63,17 @@ namespace BookList.Api.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _bookService.GetBookByIdAsync(id);
+            var user = await bookService.GetBookByIdAsync(id);
             if (user == null)
             {
                 return NotFound(new { message = "User not found" });
             }
             
-            await _bookService.DeleteBookAsync(id);
+            var deleted = await bookService.DeleteBookAsync(id);
+
+            if(!deleted) {
+                return BadRequest(new { message = "Failed to delete book" });
+            }
 
             return NoContent();
         }

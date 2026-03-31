@@ -7,12 +7,10 @@ namespace BookList.Api.Controllers
     [ApiController]
     public class UserController(IUserService userService) : ControllerBase
     {
-        private readonly IUserService _userService = userService;
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await userService.GetUserByIdAsync(id);
             if (user == null) {
                 return NotFound(new { message = "User not found"});
             }
